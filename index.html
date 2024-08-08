@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function getComputerChoice() {
+            let choice = Math.floor(Math.random() * 3);
+            let result = "";
+            if (choice == 0)
+            {
+                result = "rock";
+            }
+            else if (choice == 1)
+            {
+                result = "paper";
+            }
+            else
+            {
+                result = "scissors";
+            }
+            console.log("The computer threw " + choice + " = " + result);
+
+            return result;
+        }
+        
+        function getHumanChoice() {
+            let choice = prompt("Rock, Paper, or Scissors?").toString().toLowerCase();
+            if (choice == "rock" ||
+                choice == "paper" ||
+                choice == "scissors") 
+            {
+                console.log("You threw: " + choice + "!");
+                return choice;
+            }
+            else
+            {
+                console.log("Cheater! You tried to throw " + choice + "!");
+                choice = getHumanChoice();
+            }
+        }
+        
+        function playRound(humanChoice, computerChoice) {
+            if (humanChoice === computerChoice)
+            {
+                console.log("Draw!");
+                return 0;
+            }
+            else if (humanChoice === "rock" && computerChoice === "scissors" ||
+                     humanChoice === "paper" && computerChoice === "rock" ||
+                     humanChoice === "scissors" && computerChoice === "paper")
+            {
+                console.log("You won the round!");
+                return 1;
+            }
+            else
+            {
+                console.log("You lost the round!");
+                return -1;
+            }
+        }
+
+        function playGame() {
+            let result = 0
+              , humanScore = 0
+              , computerScore = 0
+              , drawCounter = 0
+              , humanChoice = ""
+              , computerChoice = "";
+            for(let i = 0; i < 5; i++) {
+                humanChoice = getHumanChoice();
+                computerChoice = getComputerChoice();
+                result = playRound(humanChoice, computerChoice);
+                if (result == 1)
+                {
+                    humanScore++;
+                }
+                else if (result == -1) {
+                    computerScore++;
+                } else {
+                    drawCounter++;
+                }
+            }
+            if (humanScore > computerScore)
+            {
+                console.log("You won the game " + humanScore + "-" + computerScore + "! There were " + drawCounter + " draws!");
+            }
+            else if (humanScore < computerScore)
+            {
+                console.log("You lost the game " + humanScore + "-" + computerScore + "! There were " + drawCounter + " draws!");
+            }
+            else
+            {
+                console.log("The game was a tie " + humanScore + "-" + computerScore + "! There were " + drawCounter + " draws!");
+            }
+        }
+        playGame()
+    </script>
+</body>
+</html>
